@@ -1,6 +1,6 @@
 <template>
 <div class="about">
-    <h1>statistics</h1>
+    statistics
     <Nav />
 
 </div>

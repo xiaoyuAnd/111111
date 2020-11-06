@@ -40,7 +40,7 @@ export default {
     .button {
         width: 100px;
         height: 30px;
-        background-color: #f60;
+        background-color: #42b983;
         line-height: 30px;
         text-align: center;
 
