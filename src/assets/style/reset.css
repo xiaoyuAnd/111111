@@ -9,7 +9,16 @@ a {
   color: inherit;
 }
 
-ol,
-ul {
+ul,
+ol {
   list-style: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+:focus {
+  outline: none;
 }
