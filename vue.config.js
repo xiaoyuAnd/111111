@@ -15,5 +15,19 @@ module.exports = {
             .tap(options => ({...options, plugins: [{ removeAttrs: { attrs: 'fill' } }] })).end()
         config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin'), [{ plainSprite: true }])
         config.module.rule('svg').exclude.add(dir) //其他SVG loader排除icons目录
-    }
+    },
+    // // sass-loader
+    // // https://vue-loader.vuejs.org/zh/guide/pre-processors.html#sass
+    // css: {
+    //     extract: false,
+    //     sourceMap: true,
+    //     loaderOptions: {
+    //         sass: {
+    //             // https://webpack.docschina.org/loaders/sass-loader/#options
+    //             // https://webpack.docschina.org/loaders/sass-loader/#additionaldata
+    //             // https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders
+    //             additionalData: '@import "~@/assets/style/variables.scss";'
+    //         }
+    //     }
+    // },
 }
