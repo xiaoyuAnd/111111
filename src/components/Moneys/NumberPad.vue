@@ -23,16 +23,18 @@
 <script lang="ts">
 import Vue from 'vue';
 import {
-    Component,Prop
+    Component,
+    Prop
 } from 'vue-property-decorator';
 @Component
 export default class Types extends Vue {
-    output = this.value.toString();
+
     @Prop() readonly value!: number;
+    output = this.value.toString();
     inputContent(event: MouseEvent) {
         const button = (event.target as HTMLButtonElement);
         const input = button.textContent!;
-        if (this.value.length === 16) {
+        if (this.output.length === 16) {
             return;
         }
         if (this.output === '0') {
@@ -60,6 +62,7 @@ export default class Types extends Vue {
     }
     ok() {
         this.$emit('updata:value', this.output)
+        this.$emit('submit', this.output)
         this.output = '0'
     }
 

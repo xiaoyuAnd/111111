@@ -1,8 +1,8 @@
 <template>
 <Layout class-prefix="layout">
-    {{record}}
-    <NumberPad :value.sync='record.amount' @updata:value="onUpdataAmount" />
-    <Types :value.sync='record.types'  />
+    {{recordList}}
+    <NumberPad :value.sync='record.amount' @updata:value="onUpdataAmount" @submit='saveRecord' />
+    <Types :value.sync='record.types' />
     <Notes @update:value="onUpdateNotes" />
     <Tags :data-source.sync="tags" @updata:selected='onUpdataTags' />
 </Layout>
@@ -16,16 +16,20 @@ import NumberPad from '@/components/Moneys/NumberPad.vue';
 
 import Vue from 'vue'
 import {
-    Component
+    Component,
+    Watch
 } from 'vue-property-decorator';
 
-type Record = {
+import recordListModel from '@/models/recordListModel';
+
+type RecordItem = {
     tags: string[];
     notes: string;
     types: string;
-    amount: number;
+    amount: number; // 数据类型 object | string
+    createdAt? : Date; // 类 / 构造函数
 }
-
+const recordList = recordListModel.fetch();
 @Component({
     components: {
         Tags,
@@ -36,11 +40,12 @@ type Record = {
 })
 export default class Money extends Vue {
     tags = ['衣', '食', '住', '行', '医疗', '购物'];
-    record: Record = {
+    recordList = recordList
+    record: RecordItem = {
         tags: [],
         notes: '',
         types: '-',
-        amount: 10
+        amount: 0
     }
     onUpdataTags(value: string[]) {
         this.record.tags = value
@@ -56,6 +61,17 @@ export default class Money extends Vue {
         this.record.amount = parseFloat(value)
 
     }
+    saveRecord() {
+        const record2 = recordListModel.clone(this.record);
+        record2.createdAt = new Date();
+        this.recordList.push(record2)
+        console.log(this.recordList)
+    }
+    @Watch('recordList')
+    onRecordListChange() {
+        recordListModel.save(this.recordList);
+    }
+
 }
 </script>
 
